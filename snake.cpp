@@ -77,10 +77,9 @@ public:
 };
 
 void InputKey(int &huong); // Lấy thông tin từ bàn phím
-
-// Hàm main
-int main() {
-    /*srand(time(NULL));
+//Game
+void snakegame(){
+    srand(time(NULL));
     noCursorType();
     int huong = Phai; // Hướng mặc định
     vector<GameSnake*> game;
@@ -120,18 +119,26 @@ int main() {
         Sleep(speed);
         if (snake.ktraChamBien() || snake.ktraChamDuoi()) {
             clrscr();
-            gotoXY(50, 14);
+            gotoXY(50, 10);
             cout << "GameOver";
-            gotoXY(50,15);
+            gotoXY(50,11);
             cout<<"Try Again?";
-            gotoXY(50,16);
+            gotoXY(50,12);
             cout<<"y yes";
-            gotoXY(50,17);
+            gotoXY(50,13);
             cout<<"n no";
-            gotoXY(50,18);
+            while(!kbhit()){
+                Sleep(500);
+                setTextColor(1+ rand()%14);
+                gotoXY(50,10);
+                cout<<"Game Over";
+            }
+            setTextColor(15);
+            gotoXY(50,14);
             char c;
             cin >> c;
             if (c == 'y') {
+                score=0;
                 snake.rsSodot();
                 speed = 200;
                 huong = Phai;
@@ -142,14 +149,35 @@ int main() {
                 clrscr(); // Xóa màn hình khi reset
                 game[0]->Draw(); // Vẽ lại tường
                 game[2]->Draw(); // Vẽ lại mồi
+                gotoXY(0,0);
+                cout<<"Diem: "<<score;
             }
-            else {
-                break; // Thoát game
+            else if(c=='n'){
+                score=0;
+                game[3]->Draw();
+                snake.rsSodot();
+                speed = 200;
+                huong = Phai;
+                snake = Snake();
+                food = Food();
+                game[1] = &snake;
+                game[2] = &food;
+                clrscr(); // Xóa màn hình khi reset
+                game[0]->Draw(); // Vẽ lại tường
+                game[2]->Draw(); // Vẽ lại mồi
+                gotoXY(0,0);
+                cout<<"Diem: "<<score;
+            }
+            else{
+                exit(1);
             }
         }
 
-    }*/
-    
+    }
+}
+// Hàm main
+int main() {
+    snakegame();
     return 0;
 }
 
